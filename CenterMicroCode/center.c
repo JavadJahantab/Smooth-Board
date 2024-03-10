@@ -1,0 +1,302 @@
+/*******************************************************
+This program was created by the
+CodeWizardAVR V3.12 Advanced
+Automatic Program Generator
+© Copyright 1998-2014 Pavel Haiduc, HP InfoTech s.r.l.
+http://www.hpinfotech.com
+
+Project : projet
+Version : 
+Date    : 2/1/2023
+Author  : Javad
+Company : 
+Comments: 
+
+
+Chip type               : ATmega32
+Program type            : Application
+AVR Core Clock frequency: 8.000000 MHz
+Memory model            : Small
+External RAM size       : 0
+Data Stack size         : 512
+*******************************************************/
+
+#include <mega32.h>
+#include <glcd.h>
+#include <font5x7.h>
+int key1,key2,t,i;
+int flag;
+int len;
+char words[32],lenh,lenl;
+#define DATA_REGISTER_EMPTY (1<<UDRE)
+#define RX_COMPLETE (1<<RXC)
+#define FRAMING_ERROR (1<<FE)
+#define PARITY_ERROR (1<<UPE)
+#define DATA_OVERRUN (1<<DOR)
+// USART Transmitter buffer
+#define TX_BUFFER_SIZE 32
+char tx_buffer[TX_BUFFER_SIZE];
+#if TX_BUFFER_SIZE <= 256
+unsigned char tx_wr_index=0,tx_rd_index=0;
+#else
+unsigned int tx_wr_index=0,tx_rd_index=0;
+#endif
+#if TX_BUFFER_SIZE < 256
+unsigned char tx_counter=0;
+#else
+unsigned int tx_counter=0;
+#endif
+
+// USART Transmitter interrupt service routine
+interrupt [USART_TXC] void usart_tx_isr(void)
+{
+if (tx_counter)
+   {
+   --tx_counter;
+   UDR=tx_buffer[tx_rd_index++];
+#if TX_BUFFER_SIZE != 256
+   if (tx_rd_index == TX_BUFFER_SIZE) tx_rd_index=0;
+#endif
+   }
+}
+
+#ifndef _DEBUG_TERMINAL_IO_
+// Write a character to the USART Transmitter buffer
+#define _ALTERNATE_PUTCHAR_
+#pragma used+
+void putchar(char c)
+{
+while (tx_counter == TX_BUFFER_SIZE);
+#asm("cli")
+if (tx_counter || ((UCSRA & DATA_REGISTER_EMPTY)==0))
+   {
+   tx_buffer[tx_wr_index++]=c;
+#if TX_BUFFER_SIZE != 256
+   if (tx_wr_index == TX_BUFFER_SIZE) tx_wr_index=0;
+#endif
+   ++tx_counter;
+   }
+else
+   UDR=c;
+#asm("sei")
+}
+#pragma used-
+#endif
+#include <stdio.h>
+#include <delay.h>
+#include <string.h>
+
+int Feshode_SHodane_Kelid(void)
+{
+    PORTC.0=0; PORTC.1=1; PORTC.2=1; PORTC.3=1;
+    if(!PINC.4) return 0;
+    if(!PINC.5) return 2;
+    if(!PINC.6) return 4;
+    if(!PINC.7) return 6;
+    PORTC.0=1; PORTC.1=0; PORTC.2=1; PORTC.3=1;
+    if(!PINC.4) return 8;
+    if(!PINC.5) return 10;
+    if(!PINC.6) return 12;
+    if(!PINC.7) return 14;
+    PORTC.0=1; PORTC.1=1; PORTC.2=0; PORTC.3=1;
+    if(!PINC.4) return 16;
+    if(!PINC.5) return 18;
+    if(!PINC.6) return 20;
+    if(!PINC.7) return 22;
+    PORTC.0=1; PORTC.1=1; PORTC.2=1; PORTC.3=0;
+    if(!PINC.4) return 24;
+    if(!PINC.5) return 26;
+    if(!PINC.6) return 28;
+    if(!PINC.7) return 30;
+    return 32;
+}
+
+
+void sent(char words[])
+     {glcd_clear();
+    glcd_outtextxy(50, 25,"ok");
+    delay_ms(500);
+    glcd_clear();
+     len= strlen(words);
+     glcd_clear();
+     len= strlen(words);
+     lenl=len&0x00FF;
+     lenh=len>>8;
+     putchar(lenl);
+     putchar(lenh);
+     for(i=0;i<len;i++)
+     {putchar(words[i]);
+          delay_ms(10);
+     }
+     sprintf(words,"");     }
+void exq(int key)
+  {glcd_clear();
+  if(key == 0){
+      strcat (words, "A");
+  }  
+    if(key == 1){
+      strcat (words, "B");
+  }
+    if(key == 2){
+      strcat (words, "C");
+  }
+    if(key == 3){
+      strcat (words, "D");
+  }
+    if(key == 4){
+      strcat (words, "E");
+  }
+    if(key == 5){
+      strcat (words, "F");
+  }
+    if(key == 6){
+      strcat (words, "G");
+  }
+    if(key == 7){
+      strcat (words, "H");
+  }
+    if(key == 8){
+      strcat (words, "I");
+  }
+    if(key == 9){
+      strcat (words, "J");
+  }
+    if(key == 10){
+      strcat (words, "K");
+  }
+    if(key == 11){
+      strcat (words, "L");
+  }
+    if(key == 12){
+      strcat (words, "M");
+  }
+    if(key == 13){
+      strcat (words, "N");
+  }
+    if(key == 14){
+      strcat (words, "O");
+  }
+    if(key == 15){
+      strcat (words, "P");
+  }
+    if(key == 16){
+      strcat (words, "Q");
+  }
+    if(key == 17){
+      strcat (words, "R");
+  }
+    if(key == 18){
+      strcat (words, "S");
+  }
+    if(key == 19){
+      strcat (words, "T");
+  }
+    if(key == 20){
+      strcat (words, "U");
+  }
+    if(key == 21){
+      strcat (words, "V");
+  }
+    if(key == 22){
+      strcat (words, "W");
+  }
+    if(key == 23){
+      strcat (words, "X");
+  }
+    if(key == 24){
+      strcat (words, "Y");
+  }
+    if(key == 25){
+      strcat (words, "Z");
+  }
+    if(key == 26){
+      strcat (words, " ");
+  }
+    if(key == 30){
+    sprintf(words,"");
+    }
+    if(key == 28){
+    sent(words);
+    }
+    glcd_outtextxy(0, 25,words);    
+     }
+     
+         
+void main(void)
+{ GLCDINIT_t glcd_init_data;
+int key;
+ DDRC=0X0F; PORTC=0XF0;
+
+// USART initialization
+// Communication Parameters: 8 Data, 1 Stop, No Parity
+// USART Receiver: Off
+// USART Transmitter: On
+// USART Mode: Asynchronous
+// USART Baud Rate: 9600
+UCSRA=(0<<RXC) | (0<<TXC) | (0<<UDRE) | (0<<FE) | (0<<DOR) | (0<<UPE) | (0<<U2X) | (0<<MPCM);
+UCSRB=(0<<RXCIE) | (1<<TXCIE) | (0<<UDRIE) | (0<<RXEN) | (1<<TXEN) | (0<<UCSZ2) | (0<<RXB8) | (0<<TXB8);
+UCSRC=(1<<URSEL) | (0<<UMSEL) | (0<<UPM1) | (0<<UPM0) | (0<<USBS) | (1<<UCSZ1) | (1<<UCSZ0) | (0<<UCPOL);
+UBRRH=0x00;
+UBRRL=0x33;
+
+// Analog Comparator initialization
+// Analog Comparator: Off
+// The Analog Comparator's positive input is
+// connected to the AIN0 pin
+// The Analog Comparator's negative input is
+// connected to the AIN1 pin
+ACSR=(1<<ACD) | (0<<ACBG) | (0<<ACO) | (0<<ACI) | (0<<ACIE) | (0<<ACIC) | (0<<ACIS1) | (0<<ACIS0);
+SFIOR=(0<<ACME);
+// DB0 - PORTA Bit 0
+// DB1 - PORTA Bit 1
+// DB2 - PORTA Bit 2
+// DB3 - PORTA Bit 3
+// DB4 - PORTA Bit 4
+// DB5 - PORTA Bit 5
+// DB6 - PORTA Bit 6
+// DB7 - PORTA Bit 7
+// E - PORTB Bit 0
+// RD /WR - PORTB Bit 1
+// RS - PORTB Bit 2
+// /RST - PORTB Bit 3
+// CS1 - PORTB Bit 4
+// CS2 - PORTB Bit 5
+
+// Specify the current font for displaying text
+glcd_init_data.font=font5x7;
+// No function is used for reading
+// image data from external memory
+glcd_init_data.readxmem=NULL;
+// No function is used for writing
+// image data to external memory
+glcd_init_data.writexmem=NULL;
+
+glcd_init(&glcd_init_data);
+
+// Global enable interrupts
+#asm("sei")
+
+while (1)
+     {flag=0;
+      do
+        key1 = Feshode_SHodane_Kelid(); 
+        while(key1==32);
+        delay_ms(300); 
+        for(t=0;t<700;t++)
+        {
+        key2 = Feshode_SHodane_Kelid();
+         if(key1==key2)
+         {flag++;
+         }
+         }
+         if (flag>0)
+         {key=key1+1;
+         }
+         else
+         {key=key1;
+         }
+         exq(key);
+         delay_ms(300);
+         }
+         }
+      

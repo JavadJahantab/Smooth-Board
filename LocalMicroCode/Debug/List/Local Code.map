@@ -1,0 +1,67 @@
+RAM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+rx_buffer                                                                         0x0260      32
+words                                                                             0x0280      32
+m                                                                                 0x02A0       2
+l                                                                                 0x02A2       2
+len                                                                               0x02A4       2
+len1                                                                              0x02A6       2
+binaryA                                                                           0x02A8      16
+binaryB                                                                           0x02B8      16
+binaryC                                                                           0x02C8      16
+binaryD                                                                           0x02D8      16
+binaryE                                                                           0x02E8      16
+binaryF                                                                           0x02F8      16
+binaryG                                                                           0x0308      16
+binaryH                                                                           0x0318      16
+binaryI                                                                           0x0328      16
+binaryJ                                                                           0x0338      16
+binaryK                                                                           0x0348      16
+binaryL                                                                           0x0358      16
+binaryM                                                                           0x0368      16
+binaryN                                                                           0x0378      16
+binaryO                                                                           0x0388      16
+binaryP                                                                           0x0398      16
+binaryQ                                                                           0x03A8      16
+binaryR                                                                           0x03B8      16
+binaryS                                                                           0x03C8      16
+binaryT                                                                           0x03D8      16
+binaryU                                                                           0x03E8      16
+binaryV                                                                           0x03F8      16
+binaryW                                                                           0x0408      16
+binaryX                                                                           0x0418      16
+binaryY                                                                           0x0428      16
+binaryZ                                                                           0x0438      16
+_seed                                                                             0x0448       4
+
+EEPROM Allocation [bytes]
+Variable                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+
+Register Allocation
+Variable                                                                          Register  Size
+------------------------------------------------------------------------------------------------
+rx_wr_index                                                                       R5           1
+rx_rd_index                                                                       R4           1
+rx_counter                                                                        R7           1
+rx_buffer_overflow                                                                R2.0      1bit
+lenl                                                                              R6           1
+lenh                                                                              R9           1
+i                                                                                 R10,R11      2
+j                                                                                 R12,R13      2
+
+FLASH Allocation [words]
+Function                                                                          Address   Size
+------------------------------------------------------------------------------------------------
+usart_rx_isr                                                                      0x00192     35
+getchar                                                                           0x001B5     19
+main                                                                              0x001C8    105
+setA                                                                              0x00231    299
+setC                                                                              0x0035C      7
+show                                                                              0x00363    112
+strlen                                                                            0x003D3     12
+strlenf                                                                           0x003DF     13
+put_buff_G102                                                                     0x003EC     58
+_print_G102                                                                       0x00426    308
+sprintf                                                                           0x0055A     52
